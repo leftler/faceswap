@@ -5,6 +5,7 @@ from pathlib import Path
 from scandir import scandir
 
 image_extensions = [".jpg", ".jpeg", ".png", ".tif", ".tiff"]
+video_extensions = [".mp4", ".avi", ".mpg", ".mov"]
 
 def get_folder(path):
     output_dir = Path(path)
@@ -14,6 +15,10 @@ def get_folder(path):
 def get_image_paths(directory):
     return [x.path for x in scandir(directory) if
      any(map(lambda ext: x.name.lower().endswith(ext), image_extensions))]
+
+def get_video_paths(directory):
+    return [x.path for x in scandir(directory) if
+     any(map(lambda ext: x.name.lower().endswith(ext), video_extensions))]
 
 class FullHelpArgumentParser(argparse.ArgumentParser):
     """

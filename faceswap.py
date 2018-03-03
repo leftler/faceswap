@@ -8,6 +8,7 @@ if sys.version_info[0] == 3 and sys.version_info[1] < 2:
 from lib.utils import FullHelpArgumentParser
 
 from scripts.extract import ExtractTrainingData
+from scripts.extract_video import ExtractTrainingDataVideo 
 from scripts.train import TrainingProcessor
 from scripts.convert import ConvertImage
 
@@ -20,6 +21,8 @@ if __name__ == "__main__":
     subparser = parser.add_subparsers()
     extract = ExtractTrainingData(
         subparser, "extract", "Extract the faces from a pictures.")
+    extract = ExtractTrainingDataVideo(
+        subparser, "extract-video", "Extract the faces from a video source.")
     train = TrainingProcessor(
         subparser, "train", "This command trains the model for the two faces A and B.")
     convert = ConvertImage(

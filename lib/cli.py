@@ -50,7 +50,9 @@ class DirectoryProcessor(object):
         print("Using {} serializer".format(self.serializer.ext))
 
         print('Starting, this may take a while...')
-
+        self.start()
+        
+    def start(self):
         self.output_dir = get_folder(self.arguments.output_dir)
         try:
             self.input_dir = get_image_paths(self.arguments.input_dir)
