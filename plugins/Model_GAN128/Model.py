@@ -45,7 +45,7 @@ class GANModel():
     def __init__(self, model_dir, gpus):
         self.model_dir = model_dir
         self.gpus = gpus
-        assert self.gpus == 1, "Error: GAN128 cannot use multiple gpus right now. See https://github.com/deepfakes/faceswap/issues/287"
+        #assert self.gpus == 1, "Error: GAN128 cannot use multiple gpus right now. See https://github.com/deepfakes/faceswap/issues/287"
 
         optimizer = Adam(1e-4, 0.5)
 
@@ -127,7 +127,9 @@ class GANModel():
         decoder_B = Decoder_ps()
         x = Input(shape=self.img_shape)
         netGA = Model(x, decoder_A(encoder(x)))
+        netGA.name = "netGA"
         netGB = Model(x, decoder_B(encoder(x)))
+        netGA.name = "netGB"
 
         self.netGA_sm = netGA
         self.netGB_sm = netGB
@@ -166,7 +168,9 @@ class GANModel():
             return Model(inputs=[inp], outputs=out)
 
         netDA = Discriminator(self.nc_D_inp)
+        netDA.name = "netDA"
         netDB = Discriminator(self.nc_D_inp)
+        netDB.name = "netDB"
 
         try:
             netDA.load_weights(str(self.model_dir / netDAH5))
