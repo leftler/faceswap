@@ -144,7 +144,9 @@ class GANModel():
 
         if self.gpus > 1:
             netGA = multi_gpu_model( self.netGA_sm , self.gpus)
+            netGA.name = "GpuNetGA"
             netGB = multi_gpu_model( self.netGB_sm , self.gpus)
+            netGA.name = "GpuNetGB"
 
         return netGA, netGB
 
